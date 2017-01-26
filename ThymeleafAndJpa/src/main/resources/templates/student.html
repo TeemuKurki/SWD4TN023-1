@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th ="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+
+<title>Student sivu</title>
+</head>
+<body>
+	<h1>Tervetuloa Haaga-Heliaan</h1>
+	<tr th:each="student : ${students}">
+		<td th:text="${student.fname}"></td>
+		<td th:text="${student.lname}"></td>
+		<br/>
+	</tr>
+</body>
+</html>

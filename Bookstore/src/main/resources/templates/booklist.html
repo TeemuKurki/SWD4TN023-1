@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th ="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"  th:href="@{css/bootstrap.min.css}" />
+<title>Booklist</title>
+</head>
+<body>
+	<h1>Books</h1>
+	<table class="table table-striped">
+		<tr>
+			<th>Author</th>
+			<th>Title</th>
+			<th>ISBN</th>
+			<th>Year</th>
+			<th>Delete</th>
+		</tr>
+		<tr th:each="book : ${books}">
+			<td th:text="${book.author}"></td>
+			<td th:text="${book.title}"></td>
+			<td th:text="${book.isbn}"></td>
+			<td th:text="${book.year}"></td>
+			<td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${book.id})}">Delete</a> </td>
+		</tr>
+	</table>
+	<br/>
+	<form th:action="@{/addBook}" th:object="${book}" method="get">
+		Author: <input type="text" th:field="*{author}" />  <br/>
+		Title: <input type="text" th:field="*{title}" /> <br/>
+		ISBN: <input type="text" th:field="*{isbn}" /> <br/>
+		Year: <input type="text" th:field="*{year}" /> <br/>
+		<input class="btn btn-success" type="submit" value="Lisää" />
+	</form>
+</body>
+</html>

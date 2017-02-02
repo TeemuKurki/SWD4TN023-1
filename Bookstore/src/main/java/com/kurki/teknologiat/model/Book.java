@@ -1,14 +1,24 @@
 package com.kurki.teknologiat.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Book {
-	private String title, author, isbn, year, price;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	private String title, author, isbn;
+	private int year, price;
 
 	public Book() {
 		super();
 	}
 
-	public Book(String title, String author, String isbn, String year,
-			String price) {
+	public Book(String title, String author, String isbn, int year, int price) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -41,20 +51,23 @@ public class Book {
 		this.isbn = isbn;
 	}
 
-	public String getYear() {
+	public int getYear() {
 		return year;
 	}
 
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
+	}
+	public long getId(){
+		return id;
 	}
 
 	@Override
@@ -63,6 +76,4 @@ public class Book {
 				+ ", year=" + year + ", price=" + price + "]";
 	}
 	
-	
-
 }

@@ -14,6 +14,11 @@ public class BookController {
 	@Autowired
 	BookRepository bookRepo;
 	
+	/*@RequestMapping("*")
+	public String login(){
+		return "login";
+	}*/
+	
 	@RequestMapping("/booklist")
 	public String getBooks(Model model){
 		model.addAttribute("book", new Book());

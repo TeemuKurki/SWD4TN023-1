@@ -20,7 +20,7 @@ public class DemoController {
 	List<Friend> friends = new ArrayList<Friend>();
 	
 	@RequestMapping("/hello")
-	public String checkDetails(@RequestParam(value="name") String name, @RequestParam(value="age") int age, Model model){
+	public String checkDetails(@RequestParam(value="name") String name, @RequestParam(value="age") Integer age, Model model){
 		model.addAttribute("name", name);
 		model.addAttribute("age", age);
 		return "hello";

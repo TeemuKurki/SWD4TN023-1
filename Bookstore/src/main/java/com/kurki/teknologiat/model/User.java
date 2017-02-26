@@ -22,14 +22,12 @@ public class User {
 		super();
 	}
 
-	public User(String username, String password, String email, String role,
-			Long id) {
+	public User(String username, String password, String email, String role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
-		this.id = id;
 	}
 
 	public String getUsername() {

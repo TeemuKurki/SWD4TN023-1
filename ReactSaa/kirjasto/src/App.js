@@ -1,42 +1,59 @@
 import React, { Component } from 'react';
 import './App.css';
 
+var libraries = [];
+
 class App extends Component {
     constructor(){
         super();
         this.fetchLibrary = this.fetchLibrary.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             name: '',
-            url: "ff"
+            url: "",
+            city: ""
         }
+    }
+    handleChange(event){
+        this.setState({
+            city: event.target.value
+        })
     }
     fetchLibrary(){
         console.log('fetching...');
-        fetch("https://api.kirjastot.fi/v3/organisation?city.name=Helsinki")
+        fetch('https://api.kirjastot.fi/v3/organisation?city.name='+this.state.city)
         .then(result => result.json())
-        .then(result => this.setState({
-                name: result.items[0].name.fi,
-                url: result.items[0].homepage.fi,
-            })
-        );
+        .then(result => {
+            libraries = [];
+            for(var i = 0; i < result.items.length; i++){
+                libraries.push({
+                    name: result.items[i].name.fi, 
+                    url: result.items[i].homepage.fi
+                });
+            }
+            this.setState({asd: "asd"})
+        })
+        console.log(this.state.city);
     }
     
   render() {
     return (
       <div>
-        <h1>Nimi: {this.state.name}</h1>
-        <h1>Kotisivu: {this.state.url}</h1>
+        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        Kaupunki
+        <br/>
         <button onClick={this.fetchLibrary}>Send</button>
+        <LibraryTable data={libraries} />
       </div>
     );
   }
 }
 
-// Component for student table
-/*class Result extends Component {
+// Component for library table
+class LibraryTable extends Component {
   render() {    
    var rows = this.props.data.map(item =>
-        <ResultItem item={item}/>
+        <LibraryItem item={item}/>
     );
 
     return (
@@ -44,7 +61,7 @@ class App extends Component {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Email</th>
+            <th>WWW</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -54,14 +71,14 @@ class App extends Component {
 }
 
 // Component for one table row
-class ResultItem extends Component {
+class LibraryItem extends Component {
   render() {
     return (
       <tr>
         <td>{this.props.item.name}</td>
-        <td>{this.props.item.email}</td>
+        <td>{this.props.item.url}</td>
       </tr>);
   }
-}*/
+}
 
 export default App;

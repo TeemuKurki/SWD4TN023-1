@@ -1,4 +1,4 @@
-package com.kurki.teknologiat.react;
+package fi.haagahelia;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ReactDomApplicationTests {
+public class StudentRestApplicationTests {
 
 	@Test
 	public void contextLoads() {

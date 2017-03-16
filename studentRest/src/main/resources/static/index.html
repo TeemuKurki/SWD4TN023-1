@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>React + Spring</title>
+</head>
+
+<body>
+  <div class='container'>
+    <div id='root'></div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+<script type="text/babel">
+	var students = [];
+
+  class App extends React.Component {
+	constructor(){
+		super();
+		this.fetchStudents = this.fetchStudents.bind(this);
+		this.state = {
+			firstName: "",
+			lastName: "",
+			email: ""
+		}
+	}
+	
+	fetchStudents(){
+		console.log("Fetching...");
+		fetch("http://localhost:8080/api/students")
+		.then(result => result.json())
+		.then(result => {
+		for(var i = 0; i < result._embedded.students; i++){
+			students.push({
+				firstName: result._embedded.students[i].firstName
+			})
+			console.log( result._embedded.students[i].firstName );
+		}
+		})
+		.catch(err => console.log(err))
+	}
+	
+	render() {
+		return (
+			<div>
+			<button onClick={this.fetchStudents}>Send</button>
+				<studentTable data={students} />
+			</div>
+		);
+    }
+  }
+
+class studentTable extends React.Component {
+	render(){
+		var rows = this.props.data.map(item => 
+			<studentItem item={item} />
+		);
+	return (
+      <table>
+        <thead>
+          <tr>
+            <th>Etunimi</th>
+
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    );
+	}
+}  
+
+class studentItem extends React.Component {
+	render(){
+	return (
+		<tr>
+			<td>{this.props.item.firstName}</td>
+
+		</tr>
+	);
+	}
+}
+
+ReactDOM.render(<App />, document.getElementById('root') );	
+</script>
+
+</body>
+</html>
